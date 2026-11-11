@@ -1,0 +1,877 @@
+<!DOCTYPE html>  <html lang="ar" dir="rtl">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+    <title>SALLY — The Final Chapter</title>  <!-- Google Fonts الفاخرة الأصلية (Cinzel, Amiri, Tajawal) -->  
+<link rel="preconnect" href="https://fonts.googleapis.com">  
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">  
+  
+<!-- FontAwesome Icons -->  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+
+<style>  
+    :root {  
+        --bg-cream: #F9F6F0;  
+        --bg-card: #FFFFFF;  
+        --text-main: #2C3531;  
+        --text-muted: #6B7A73;  
+        --sage-accent: #8A9A86;  
+        --sage-light: #EBF0EA;  
+        --gold-accent: #C5A059;  
+        --gold-light: #FBF7EE;  
+        --shadow-soft: 0 10px 30px rgba(44, 53, 49, 0.06);  
+        --border-light: 1px solid rgba(138, 154, 134, 0.15);  
+    }  
+
+    * {  
+        margin: 0;  
+        padding: 0;  
+        box-sizing: border-box;  
+        user-select: none;  
+        -webkit-tap-highlight-color: transparent;  
+    }  
+
+    body {  
+        background-color: #E8E2D5;  
+        color: var(--text-main);  
+        font-family: 'Tajawal', sans-serif;  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        min-height: 100vh;  
+        overflow: hidden;  
+    }  
+
+    .phone-frame {  
+        width: 100%;  
+        max-width: 420px;  
+        height: 100vh;  
+        max-height: 880px;  
+        background-color: var(--bg-cream);  
+        position: relative;  
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15);  
+        display: flex;  
+        flex-direction: column;  
+        overflow: hidden;  
+    }  
+
+    @media (min-width: 421px) {  
+        .phone-frame {  
+            border-radius: 40px;  
+            border: 10px solid #2C3531;  
+        }  
+    }  
+
+    .phone-header {  
+        padding: 0.9rem 1rem;  
+        background: var(--bg-card);  
+        border-bottom: var(--border-light);  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+        z-index: 10;  
+    }  
+
+    .phone-header h1 {  
+        font-family: 'Cinzel', serif;  
+        font-size: 1rem;  
+        letter-spacing: 1px;  
+        color: var(--text-main);  
+    }  
+
+    .user-badge {  
+        width: 30px;  
+        height: 30px;  
+        border-radius: 50%;  
+        border: 1px solid var(--gold-accent);  
+        display: flex;  
+        align-items: center;  
+        justify-content: center;  
+        font-family: 'Cinzel', serif;  
+        color: var(--gold-accent);  
+        font-size: 0.85rem;  
+        background: var(--gold-light);  
+    }  
+
+    .app-body {  
+        flex: 1;  
+        overflow-y: auto;  
+        padding: 1.2rem;  
+        position: relative;  
+        padding-bottom: 90px;  
+    }  
+
+    .tab-pane {  
+        display: none;  
+        animation: fadeIn 0.4s ease;  
+    }  
+
+    .tab-pane.active {  
+        display: block;  
+    }  
+
+    @keyframes fadeIn {  
+        from { opacity: 0; transform: translateY(6px); }  
+        to { opacity: 1; transform: translateY(0); }  
+    }  
+
+    .bottom-nav {  
+        position: absolute;  
+        bottom: 0;  
+        left: 0;  
+        width: 100%;  
+        height: 70px;  
+        background: var(--bg-card);  
+        border-top: var(--border-light);  
+        display: flex;  
+        justify-content: space-around;  
+        align-items: center;  
+        z-index: 100;  
+    }  
+
+    .nav-btn {  
+        background: none;  
+        border: none;  
+        display: flex;  
+        flex-direction: column;  
+        align-items: center;  
+        gap: 2px;  
+        color: var(--text-muted);  
+        font-size: 0.58rem;  
+        cursor: pointer;  
+        transition: all 0.3s ease;  
+        flex: 1;  
+        font-family: 'Tajawal', sans-serif;  
+    }  
+
+    .nav-btn i {  
+        font-size: 0.95rem;  
+    }  
+
+    .nav-btn.active {  
+        color: var(--gold-accent);  
+    }  
+
+    .card {  
+        background: var(--bg-card);  
+        border: var(--border-light);  
+        border-radius: 16px;  
+        padding: 1.2rem;  
+        margin-bottom: 1rem;  
+        box-shadow: var(--shadow-soft);  
+    }  
+
+    .card-title {  
+        font-family: 'Cinzel', serif;  
+        font-size: 0.95rem;  
+        color: var(--text-main);  
+        margin-bottom: 0.8rem;  
+        display: flex;  
+        align-items: center;  
+        gap: 8px;  
+    }  
+
+    .exact-banner {  
+        background-color: var(--bg-card);  
+        border: 1px solid rgba(197, 160, 89, 0.3);  
+        color: var(--text-main);  
+        border-radius: 20px;  
+        padding: 1.8rem 1.4rem;  
+        margin-bottom: 1.2rem;  
+        box-shadow: var(--shadow-soft);  
+        position: relative;  
+    }  
+
+    .exact-banner h2 {  
+        font-family: 'Cinzel', serif;  
+        font-size: 0.75rem;  
+        letter-spacing: 2px;  
+        color: var(--gold-accent);  
+        margin-bottom: 0.8rem;  
+        text-transform: uppercase;  
+    }  
+
+    .exact-banner h3 {  
+        font-family: 'Amiri', serif;  
+        font-size: 1.8rem;  
+        font-weight: 700;  
+        margin-bottom: 0.8rem;  
+        color: var(--text-main);  
+    }  
+
+    .exact-banner p {  
+        font-family: 'Tajawal', sans-serif;  
+        font-size: 0.88rem;  
+        line-height: 1.7;  
+        color: var(--text-muted);  
+        margin-bottom: 1.5rem;  
+    }  
+
+    .banner-footer-flex {  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+        gap: 10px;  
+    }  
+
+    .circle-badge {  
+        width: 75px;  
+        height: 75px;  
+        border-radius: 50%;  
+        border: 1px solid var(--gold-accent);  
+        display: flex;  
+        flex-direction: column;  
+        align-items: center;  
+        justify-content: center;  
+        text-align: center;  
+        font-size: 0.65rem;  
+        color: var(--gold-accent);  
+        padding: 5px;  
+        line-height: 1.2;  
+        font-family: 'Cinzel', serif;  
+        background: var(--gold-light);  
+    }  
+
+    .pill-badge {  
+        border: var(--border-light);  
+        background: var(--sage-light);  
+        padding: 8px 14px;  
+        border-radius: 20px;  
+        font-size: 0.8rem;  
+        color: var(--text-main);  
+        text-align: center;  
+        flex: 1;  
+        font-family: 'Amiri', serif;  
+    }  
+
+    .input-custom {  
+        width: 100%;  
+        padding: 10px 12px;  
+        border: var(--border-light);  
+        border-radius: 10px;  
+        background: var(--sage-light);  
+        font-family: 'Tajawal', sans-serif;  
+        font-size: 0.88rem;  
+        color: var(--text-main);  
+        outline: none;  
+        margin-bottom: 8px;  
+    }  
+
+    .btn-custom {  
+        background: var(--text-main);  
+        color: var(--bg-card);  
+        border: none;  
+        padding: 10px 18px;  
+        border-radius: 10px;  
+        font-family: 'Tajawal', sans-serif;  
+        font-size: 0.85rem;  
+        cursor: pointer;  
+        width: 100%;  
+    }  
+
+    .envelope-grid {  
+        display: grid;  
+        grid-template-columns: repeat(2, 1fr);  
+        gap: 10px;  
+    }  
+
+    .env-card {  
+        background: var(--bg-card);  
+        border: var(--border-light);  
+        border-radius: 14px;  
+        padding: 1.2rem 0.8rem;  
+        text-align: center;  
+        cursor: pointer;  
+        box-shadow: var(--shadow-soft);  
+    }  
+
+    .env-card i {  
+        font-size: 1.6rem;  
+        color: var(--gold-accent);  
+        margin-bottom: 0.5rem;  
+    }  
+
+    .env-card h4 {  
+        font-size: 0.82rem;  
+        color: var(--text-main);  
+        font-family: 'Amiri', serif;  
+    }  
+
+    .reminder-item {  
+        display: flex;  
+        align-items: flex-start;  
+        gap: 10px;  
+        padding: 10px 0;  
+        border-bottom: 1px solid rgba(0,0,0,0.04);  
+        font-size: 0.88rem;  
+        font-family: 'Amiri', serif;  
+    }  
+
+    .reminder-item i {  
+        color: var(--sage-accent);  
+        margin-top: 3px;  
+    }  
+
+    .subject-card-box {  
+        background: var(--sage-light);  
+        border: var(--border-light);  
+        border-radius: 12px;  
+        padding: 1rem;  
+        margin-bottom: 0.8rem;  
+        display: flex;  
+        flex-direction: column;  
+        gap: 6px;  
+    }  
+
+    .subject-card-header {  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+    }  
+
+    .subject-name-title {  
+        font-weight: 700;  
+        font-size: 0.95rem;  
+        color: var(--text-main);  
+        font-family: 'Amiri', serif;  
+    }  
+
+    .subject-time-label {  
+        font-size: 0.78rem;  
+        color: var(--text-muted);  
+    }  
+
+    .subject-countdown-val {  
+        font-family: 'Cinzel', serif;  
+        font-size: 0.88rem;  
+        color: var(--gold-accent);  
+        font-weight: 600;  
+        background: var(--bg-card);  
+        padding: 6px 10px;  
+        border-radius: 8px;  
+        text-align: center;  
+        border: var(--border-light);  
+    }  
+
+    /* Modal */  
+    .modal {  
+        position: absolute;  
+        top: 0; left: 0; width: 100%; height: 100%;  
+        background: rgba(44, 53, 49, 0.6);  
+        backdrop-filter: blur(4px);  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        padding: 1.5rem;  
+        opacity: 0;  
+        pointer-events: none;  
+        transition: opacity 0.3s ease;  
+        z-index: 1000;  
+    }  
+
+    .modal.active {  
+        opacity: 1;  
+        pointer-events: auto;  
+    }  
+
+    .modal-box {  
+        background: var(--bg-card);  
+        border-radius: 20px;  
+        padding: 1.8rem;  
+        width: 100%;  
+        max-width: 350px;  
+        text-align: center;  
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);  
+        position: relative;  
+        max-height: 80vh;  
+        overflow-y: auto;  
+    }  
+
+    .close-modal {  
+        position: absolute;  
+        top: 15px;  
+        left: 15px;  
+        background: none;  
+        border: none;  
+        font-size: 1.2rem;  
+        color: var(--text-muted);  
+        cursor: pointer;  
+    }  
+
+    .time-inputs-flex {  
+        display: flex;  
+        gap: 6px;  
+        justify-content: center;  
+        margin-bottom: 1rem;  
+    }  
+
+    .time-inputs-flex input {  
+        width: 65px;  
+        text-align: center;  
+        padding: 8px;  
+        border-radius: 8px;  
+        border: var(--border-light);  
+        background: var(--sage-light);  
+        font-family: 'Cinzel', monospace;  
+        font-size: 1rem;  
+    }  
+</style>
+
+</head>  
+<body>  <div class="phone-frame">  
+    <!-- Header -->  
+    <div class="phone-header">  
+        <h1>SALLY'S JOURNEY</h1>  
+        <div class="user-badge">S</div>  
+    </div>  
+
+    <!-- Body Content -->  
+    <div class="app-body">  
+          
+        <!-- TAB 1: HOME -->  
+        <div id="tab-home" class="tab-pane active">  
+            <div class="exact-banner">  
+                <h2>YOUR TIME TO SHINE</h2>  
+                <h3>سالي، هذا فصلكِ.</h3>  
+                <p>عامك الأخير ليس سباقاً مع أحد. هو رحلة تخصك أنت، وكل خطوة هادئة تخطينها اليوم تقربك من المكان الذي تحلمين به.</p>  
+                  
+                <div class="banner-footer-flex">  
+                    <div class="circle-badge">  
+                        <span>Believe</span>  
+                        <span>in your</span>  
+                        <span>journey</span>  
+                    </div>  
+                    <div style="display: flex; flex-direction: column; gap: 6px; flex: 1;">  
+                        <div class="pill-badge">الثاني عشر ٠ الفصل الأول</div>  
+                        <div class="pill-badge" style="font-size: 0.75rem;">بهدوء وثقة، خطوة بخطوة</div>  
+                    </div>  
+                </div>  
+            </div>  
+
+            <!-- Main Countdown Widget -->  
+            <div class="card" style="text-align: center;">  
+                <div class="card-title" style="justify-content: center;"><i class="fa-solid fa-hourglass-half"></i> عدّاد الامتحانات العام</div>  
+                <div id="main-countdown-display" style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--gold-accent); margin: 0.5rem 0;">  
+                    00 يوم : 00 ساعة : 00 دقيقة  
+                </div>  
+                <p style="font-size: 0.75rem; color: var(--text-muted);">تحديد موعد الهدف النهائي من قِبل سالي</p>  
+                <button class="btn-custom" style="margin-top: 10px; padding: 6px 12px; font-size: 0.75rem;" onclick="openCountdownSettings()">تعديل موعد العداد</button>  
+            </div>  
+        </div>  
+
+        <!-- TAB 2: REMINDERS & SISTER NOTE -->  
+        <div id="tab-reminders" class="tab-pane">  
+            <div class="card" style="background: var(--gold-light); border-color: rgba(197, 160, 89, 0.3);">  
+                <div class="card-title" style="color: var(--gold-accent);"><i class="fa-solid fa-heart"></i> A NOTE FROM YOUR SISTER</div>  
+                <p style="font-family: 'Amiri', serif; font-size: 0.93rem; line-height: 1.8; color: var(--text-main);">  
+                    سالي، بدي إياك تعرفي إني فخورة فيك من قبل ما تطلع أي نتيجة. فخورة بمحاولاتك، وبكل مرة بتتعبي فيها وببتكلي. لا تحمّلي نفسك فوق طاقتها، وخذي الطريق خطوة خطوة. بتمنالك أياماً مليانة راحة ورضا ونجاح، وأنا دائماً معك وجنبك.<br><br>  
+                    <strong>أختك المحبة لجين<br>كل الحب 🤍</strong>  
+                </p>  
+            </div>  
+
+            <div class="card">  
+                <div class="card-title"><i class="fa-solid fa-seedling"></i> تذكيرات لطيفة لكِ</div>  
+                <div class="reminder-item"><i class="fa-solid fa-check"></i> <span>الاستراحة ليست تضييعاً لوقت! هي جزء من الخطة.</span></div>  
+                <div class="reminder-item"><i class="fa-solid fa-check"></i> <span>لا تقارني بدايتك بمنتصف رحلة شخص آخر.</span></div>  
+                <div class="reminder-item"><i class="fa-solid fa-check"></i> <span>النوم الجيد يساعدك على التركيز والتذكر.</span></div>  
+                <div class="reminder-item"><i class="fa-solid fa-check"></i> <span>إنجاز قليل باستمرار أفضل من ضغط يرهقك.</span></div>  
+                <div class="reminder-item"><i class="fa-solid fa-check"></i> <span>تذكري دائماً أنني فخورة بكِ في كل حالاتك.</span></div>  
+                <div class="reminder-item"><i class="fa-solid fa-check"></i> <span>اشربي الماء بانتظام، وجسدك يحتاج للراحة كما يحتاج لعقلكِ للتركيز.</span></div>  
+            </div>  
+        </div>  
+
+        <!-- TAB 3: EXAMS & COUNTDOWNS -->  
+        <div id="tab-subjects" class="tab-pane">  
+            <div class="card">  
+                <div class="card-title"><i class="fa-solid fa-hourglass-half"></i> إضافة امتحان أو مناسبة</div>  
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.8rem;">أضيفي اسم المادة أو المناسبة ووقتها.</p>  
+                  
+                <input type="text" id="new-subj-name" class="input-custom" placeholder="اسم المادة أو المناسبة...">  
+                <input type="datetime-local" id="new-subj-time" class="input-custom">  
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; margin-bottom: 8px; color: var(--text-muted);">  
+                    <input type="checkbox" id="new-subj-is-exam" checked> هل هو امتحان؟ (أزل العلامة إذا كان مناسبة مثل عيد ميلاد)  
+                </label>  
+                <button class="btn-custom" onclick="addNewSubject()">إضافة للعداد</button>  
+            </div>  
+
+            <div class="card">  
+                <div class="card-title"><i class="fa-solid fa-calendar-days"></i> جدول الامتحانات والمواعيد</div>  
+                <div id="subjects-cards-container">  
+                    <!-- البطاقات -->  
+                </div>  
+            </div>  
+        </div>  
+
+        <!-- TAB 4: OPEN WHEN MESSAGES -->  
+        <div id="tab-messages" class="tab-pane">  
+            <h3 style="font-family: 'Amiri', serif; margin-bottom: 0.4rem; font-size: 1.1rem;">رسائل افتحيها عندما... ✉️</h3>  
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">رسائل دافئة مجهزة لكِ، وبعد كل امتحان تخلصيه.</p>  
+
+            <div class="envelope-grid" id="envelopes-wrapper">  
+                <div class="env-card" onclick="openMsg('لما تحسي بالتعب 🌿', 'يا عيوني وسند حياتي، التعب طبيعي جداً بهالفترة، بس اتذكري إنه هاللحظات الصعبة هي اللي بتصنع نجاحك الفخم. خدي استراحة قصيرة، واشربي قهوتك، وارجعي وأنتِ أقوى!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>لما تحسي بالتعب</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('لما تفقدين الحماس 🔥', 'سالي الغالية.. اتذكري الفرحة الكبيرة يوم إعلان النتائج لما تشوفي اسمك فوق والكل فخور فيكِ! الحماس بروح وبيرجع، بس إرادتك هي اللي بتدوم.')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>لما تفقدين الحماس</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('قبل الامتحان ✍️', 'سمّي بسم الله، وخذي نفس عميق. أنتِ درستِ وتعبتِ وعملتِ اللي عليكِ، والرب معكِ. ثقي بنفسك وبإجاباتك!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>قبل الامتحان</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('عند إنجاز كبير ⭐', 'فخورة فييييكِ يا أحلى أخت بالدنيا! كل هدف صغير بتنجزيه هو خطوة عملاقة بنحتفل فيها سوا. واصلي إبداعك يا بطلة!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>عند إنجاز كبير</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد الامتحان 🚪', 'الامتحان صار خلفك، وما عاد فيه مجال للتفكير فيه! ركزي باللي جاي، وادخلي الامتحان القادم بنفس مطمئنة وقلب قوي.')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد الامتحان</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان الرياضيات 📐', 'أول مادة أساسية صارت خلفك! برافو يا بطلة، خذي نفس عميق وافتحي صفحة جديدة للمادة التالية بكل ثقة.')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان الرياضيات</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان الانجليزي 🔤', 'خطوة سلسة ومميزة يا عيوني! عم تثبتي لنفسك كل يوم قديش أنتِ قدها وقديش تعبك عم يثمر.')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان الانجليزي</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان الكيمياء 🧪', 'نص المشوار تقريباً خلص وأنتِ عم تبدعي! فخورة بهمتك العالية وبإصرارك الرائع.')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان الكيمياء</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان الفيزياء ⚡', 'الهمّة واصلة لأعلى مستوياتها، ما ضل غير القليل لتوصلي للقمة يا سالي!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان الفيزياء</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان العربي 📖', 'روعة إصرارك وثباتك جميل جداً يا عيوني. واصلي تألقك!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان العربي</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان الدين 🕌', 'راحة وسلام لقلبِك الجميل. خطوات معدودة وتفرحي بفرحة التخرج الكبرى.')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان الدين</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان الوطنية 🇦🇪', 'قربنا نوصل خط النهاية ونفخر بهالرحلة العظيمة سوا!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان الوطنية</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('بعد امتحان الأحياء 🧬', 'الختام مسك! كل مادة خلصتيها أثبتت قديش أنتِ ذكية ومجتهدة. أنتِ بطلة بكل ما تحمله الكلمة من معنى!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>بعد امتحان الأحياء</h4>  
+                </div>  
+                <div class="env-card" onclick="openMsg('في يوم آخر امتحان 🎉', 'وأخيراً وصلتي لهاد اليوم العظيم! فخورة فيكِ من أول خطوة لآخر لحظة. استمتعي بشعور الإنجاز يا ملكة التوجيهي!')">  
+                    <i class="fa-solid fa-envelope-open-text"></i>  
+                    <h4>يوم آخر امتحان</h4>  
+                </div>  
+            </div>  
+
+            <div class="card" style="margin-top: 1rem;">  
+                <div class="card-title"><i class="fa-solid fa-plus-circle"></i> أضيفي رسالتكِ الخاصة</div>  
+                <input type="text" id="custom-env-title" class="input-custom" placeholder="عنوان الرسالة الشخصية...">  
+                <textarea id="custom-env-text" class="input-custom" style="height: 70px; resize: none;" placeholder="نص الرسالة..."></textarea>  
+                <button class="btn-custom" onclick="addCustomMessage()">حفظ الرسالة الشخصية</button>  
+            </div>  
+        </div>  
+
+        <!-- TAB 5: STUDY TIMER -->  
+        <div id="tab-timer" class="tab-pane">  
+            <div class="card" style="text-align: center; padding: 1.5rem;">  
+                <h3 style="font-family: 'Amiri', serif; font-size: 1.1rem; margin-bottom: 0.4rem;">مؤقت التركيز الدقيق</h3>  
+                <p style="color: var(--text-muted); font-size: 0.78rem; margin-bottom: 1rem;">حددي الوقت بالساعات، الدقائق، والثواني بحرية تامة:</p>  
+                  
+                <div class="time-inputs-flex">  
+                    <div>  
+                        <span style="font-size: 0.7rem; color: var(--text-muted);">ساعات</span>  
+                        <input type="number" id="timer-hours" min="0" max="24" value="0">  
+                    </div>  
+                    <div>  
+                        <span style="font-size: 0.7rem; color: var(--text-muted);">دقائق</span>  
+                        <input type="number" id="timer-mins" min="0" max="59" value="25">  
+                    </div>  
+                    <div>  
+                        <span style="font-size: 0.7rem; color: var(--text-muted);">ثواني</span>  
+                        <input type="number" id="timer-secs" min="0" max="59" value="0">  
+                    </div>  
+                </div>  
+
+                <div id="timer-display" style="font-family: 'Cinzel', serif; font-size: 2.6rem; color: var(--text-main); margin: 0.8rem 0;">00:25:00</div>  
+                  
+                <div style="display: flex; gap: 8px;">  
+                    <button class="btn-custom" onclick="startCustomTimer()">بدء المؤقت</button>  
+                    <button class="btn-custom" style="background: var(--sage-accent);" onclick="resetTimer()">إعادة ضبط</button>  
+                </div>  
+            </div>  
+        </div>  
+
+    </div>  
+
+    <!-- Bottom Navigation -->  
+    <nav class="bottom-nav">  
+        <button class="nav-btn active" onclick="switchTab('home', this)">  
+            <i class="fa-solid fa-house"></i>  
+            <span>الرئيسية</span>  
+        </button>  
+        <button class="nav-btn" onclick="switchTab('reminders', this)">  
+            <i class="fa-solid fa-heart"></i>  
+            <span>الرسائل والتذكيرات</span>  
+        </button>  
+        <button class="nav-btn" onclick="switchTab('subjects', this)">  
+            <i class="fa-solid fa-hourglass-half"></i>  
+            <span>الامتحانات</span>  
+        </button>  
+        <button class="nav-btn" onclick="switchTab('messages', this)">  
+            <i class="fa-solid fa-envelope-open-text"></i>  
+            <span>افتحيها...</span>  
+        </button>  
+        <button class="nav-btn" onclick="switchTab('timer', this)">  
+            <i class="fa-solid fa-stopwatch"></i>  
+            <span>المؤقت</span>  
+        </button>  
+    </nav>  
+</div>  
+
+<!-- Modal for Messages -->  
+<div class="modal" id="msg-modal">  
+    <div class="modal-box">  
+        <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>  
+        <h3 id="modal-title" style="font-family: 'Amiri', serif; color: var(--gold-accent); margin-bottom: 0.8rem; font-size: 1.1rem;"></h3>  
+        <p id="modal-text" style="font-size: 0.88rem; line-height: 1.7; color: var(--text-main); font-family: 'Tajawal', sans-serif;"></p>  
+    </div>  
+</div>  
+
+<!-- Modal for Countdown Setting -->  
+<div class="modal" id="countdown-modal">  
+    <div class="modal-box">  
+        <button class="close-modal" onclick="closeCountdownSettings()"><i class="fa-solid fa-xmark"></i></button>  
+        <h3 style="font-family: 'Amiri', serif; color: var(--gold-accent); margin-bottom: 0.8rem; font-size: 1.1rem;">تحديد موعد الهدف النهائي</h3>  
+        <input type="datetime-local" id="target-countdown-input" class="input-custom">  
+        <button class="btn-custom" onclick="saveTargetCountdown()">حفظ الموعد</button>  
+    </div>  
+</div>  
+
+<script>  
+    function switchTab(tabId, btn) {  
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));  
+        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));  
+        document.getElementById('tab-' + tabId).classList.add('active');  
+        btn.classList.add('active');  
+    }  
+
+    function openMsg(title, text) {  
+        document.getElementById('modal-title').innerText = title;  
+        document.getElementById('modal-text').innerText = text;  
+        document.getElementById('msg-modal').classList.add('active');  
+    }  
+
+    function closeModal() {  
+        document.getElementById('msg-modal').classList.remove('active');  
+    }  
+
+    let targetTime = localStorage.getItem('sally_target_time') || new Date().getTime() + (10 * 24 * 60 * 60 * 1000);  
+
+    function openCountdownSettings() {  
+        document.getElementById('countdown-modal').classList.add('active');  
+    }  
+
+    function closeCountdownSettings() {  
+        document.getElementById('countdown-modal').classList.remove('active');  
+    }  
+
+    function saveTargetCountdown() {  
+        let val = document.getElementById('target-countdown-input').value;  
+        if(!val) return alert('الرجاء اختيار التاريخ والوقت');  
+        targetTime = new Date(val).getTime();  
+        localStorage.setItem('sally_target_time', targetTime);  
+        closeCountdownSettings();  
+    }  
+
+    setInterval(() => {  
+        let now = new Date().getTime();  
+        let diff = targetTime - now;  
+        if(diff < 0) {  
+            document.getElementById('main-countdown-display').innerText = "حان وقت التألق والنجاح! 🎉";  
+            return;  
+        }  
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));  
+        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));  
+        let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));  
+        document.getElementById('main-countdown-display').innerText = `${days} يوم : ${hours} ساعة : ${mins} دقيقة`;  
+    }, 1000);  
+
+    let correctSubjects = [  
+        { name: "1. الأربعاء: الرياضيات", time: new Date("2026-11-25T08:00:00").getTime(), isExam: true },  
+        { name: "2. الخميس: الانجليزي", time: new Date("2026-11-26T08:00:00").getTime(), isExam: true },  
+        { name: "3. الجمعة: الكيمياء", time: new Date("2026-11-27T08:00:00").getTime(), isExam: true },  
+        { name: "🎂 يوم عيد ميلاد لجين 🩷💗", time: new Date("2026-11-29T00:00:00").getTime(), isExam: false },  
+        { name: "4. الاثنين: الفيزياء", time: new Date("2026-12-07T08:00:00").getTime(), isExam: true },  
+        { name: "5. عربي", time: new Date("2026-12-08T08:00:00").getTime(), isExam: true },  
+        { name: "6. دين", time: new Date("2026-12-09T08:00:00").getTime(), isExam: true },  
+        { name: "7. وطنية", time: new Date("2026-12-10T08:00:00").getTime(), isExam: true },  
+        { name: "8. أحياء", time: new Date("2026-12-11T08:00:00").getTime(), isExam: true }  
+    ];  
+
+    // مفتاح تخزين جديد كلياً لضمان عدم حدوث تعارض مع البيانات القديمة  
+    let subjects = JSON.parse(localStorage.getItem('sally_subjects_list_v3')) || correctSubjects;  
+
+    function renderSubjects() {  
+        let container = document.getElementById('subjects-cards-container');  
+        container.innerHTML = '';  
+          
+        subjects.forEach((subj, index) => {  
+            let box = document.createElement('div');  
+            box.className = 'subject-card-box';  
+              
+            let dateObj = new Date(subj.time);  
+            let dateStr = !isNaN(dateObj.getTime()) ? dateObj.toLocaleString('ar-AE', { dateStyle: 'full', timeStyle: 'short' }) : "الموعد غير محدد";  
+            let labelText = subj.isExam !== false ? `موعد الامتحان: ${dateStr}` : `المناسبة: ${dateStr}`;  
+
+            box.innerHTML = `  
+                <div class="subject-card-header">  
+                    <span class="subject-name-title">${subj.name}</span>  
+                    <div>  
+                        <button onclick="editSubject(${index})" style="background:none; border:none; color:var(--gold-accent); cursor:pointer; font-size:0.85rem; margin-left: 8px;" title="تعديل"><i class="fa-solid fa-pen"></i></button>  
+                        <button onclick="deleteSubject(${index})" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:0.85rem;" title="حذف"><i class="fa-solid fa-trash"></i></button>  
+                    </div>  
+                </div>  
+                <div class="subject-time-label">${labelText}</div>  
+                <div class="subject-countdown-val" id="subj-cd-${index}">جاري الحساب...</div>  
+            `;  
+            container.appendChild(box);  
+        });  
+    }  
+
+    function addNewSubject() {  
+        let name = document.getElementById('new-subj-name').value;  
+        let timeVal = document.getElementById('new-subj-time').value;  
+        let isExam = document.getElementById('new-subj-is-exam').checked;  
+        if(!name || !timeVal) return alert('الرجاء إدخال الاسم ووقت الموعد');  
+
+        subjects.push({ name: name, time: new Date(timeVal).getTime(), isExam: isExam });  
+        localStorage.setItem('sally_subjects_list_v3', JSON.stringify(subjects));  
+          
+        document.getElementById('new-subj-name').value = '';  
+        document.getElementById('new-subj-time').value = '';  
+        renderSubjects();  
+        alert('تمت الإضافة بنجاح 🤍');  
+    }  
+
+    function editSubject(index) {  
+        let subj = subjects[index];  
+        let newName = prompt("تعديل اسم المادة أو المناسبة:", subj.name);  
+        if(newName === null) return;  
+          
+        let dateObj = new Date(subj.time);  
+        let defaultDateStr = !isNaN(dateObj.getTime()) ? dateObj.toISOString().slice(0,16) : "";  
+        let newTimeStr = prompt("تعديل وقت الموعد (بالصيغة: YYYY-MM-DDTHH:MM مثلاً 2026-11-25T08:00):", defaultDateStr);  
+        if(newTimeStr === null) return;  
+
+        let newTime = new Date(newTimeStr).getTime();  
+        if(newName.trim() !== "") subj.name = newName;  
+        if(!isNaN(newTime)) subj.time = newTime;  
+
+        localStorage.setItem('sally_subjects_list_v3', JSON.stringify(subjects));  
+        renderSubjects();  
+        alert('تم التعديل بنجاح ✨');  
+    }  
+
+    function deleteSubject(index) {  
+        subjects.splice(index, 1);  
+        localStorage.setItem('sally_subjects_list_v3', JSON.stringify(subjects));  
+        renderSubjects();  
+    }  
+
+    setInterval(() => {  
+        let now = new Date().getTime();  
+        subjects.forEach((subj, index) => {  
+            let el = document.getElementById(`subj-cd-${index}`);  
+            if(!el) return;  
+            let diff = subj.time - now;  
+            if(diff < 0) {  
+                el.innerText = subj.isExam !== false ? "حان وقت الامتحان! 🌟" : "كل عام وأنتِ بخير يا لُجين! 🎉";  
+                return;  
+            }  
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));  
+            let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));  
+            let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));  
+            let secs = Math.floor((diff % (1000 * 60)) / 1000);  
+            el.innerText = `${days} يوم : ${hours} ساعة : ${mins} دقيقة : ${secs} ثانية متبقية`;  
+        });  
+    }, 1000);  
+
+    function saveJournal() {  
+        let val = document.getElementById('journal-text').value;  
+        localStorage.setItem('sally_user_journal', val);  
+        alert('تم حفظ مذكراتكِ بنجاح 🤍');  
+    }  
+
+    function addCustomMessage() {  
+        let title = document.getElementById('custom-env-title').value;  
+        let text = document.getElementById('custom-env-text').value;  
+        if(!title || !text) return alert('الرجاء تعبئة العنوان والنص');  
+
+        let grid = document.getElementById('envelopes-wrapper');  
+        let div = document.createElement('div');  
+        div.className = 'env-card';  
+        div.onclick = () => openMsg(title, text);  
+        div.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i><h4>${title}</h4>`;  
+        grid.appendChild(div);  
+
+        document.getElementById('custom-env-title').value = '';  
+        document.getElementById('custom-env-text').value = '';  
+        alert('تمت إضافة رسالتكِ بنجاح 🤍');  
+    }  
+
+    let timerInterval;  
+    let totalSeconds = 25 * 60;  
+
+    function updateTimerDisplay() {  
+        let h = Math.floor(totalSeconds / 3600);  
+        let m = Math.floor((totalSeconds % 3600) / 60);  
+        let s = totalSeconds % 60;  
+        document.getElementById('timer-display').innerText =   
+            `${h < 10 ? '0':''}${h}:${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;  
+    }  
+
+    function startCustomTimer() {  
+        if(timerInterval) clearInterval(timerInterval);  
+          
+        let hrs = parseInt(document.getElementById('timer-hours').value) || 0;  
+        let mins = parseInt(document.getElementById('timer-mins').value) || 0;  
+        let secs = parseInt(document.getElementById('timer-secs').value) || 0;  
+
+        totalSeconds = (hrs * 3600) + (mins * 60) + secs;  
+        if(totalSeconds <= 0) return alert('الرجاء تحديد وقت صحيح للمؤقت');  
+
+        updateTimerDisplay();  
+
+        timerInterval = setInterval(() => {  
+            if(totalSeconds > 0) {  
+                totalSeconds--;  
+                updateTimerDisplay();  
+            } else {  
+                clearInterval(timerInterval);  
+                timerInterval = null;  
+                alert('انتهت جلسة التركيز المحددة بنجاح! ✨');  
+            }  
+        }, 1000);  
+    }  
+
+    function resetTimer() {  
+        clearInterval(timerInterval);  
+        timerInterval = null;  
+        totalSeconds = 25 * 60;  
+        document.getElementById('timer-hours').value = 0;  
+        document.getElementById('timer-mins').value = 25;  
+        document.getElementById('timer-secs').value = 0;  
+        updateTimerDisplay();  
+    }  
+
+    window.onload = function() {  
+        renderSubjects();  
+    }  
+</script>
+
+</body>  
+</html>  
