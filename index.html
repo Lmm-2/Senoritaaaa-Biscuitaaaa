@@ -59,7 +59,7 @@
 
         @media (min-width: 900px) {
             .website-container {
-                max-width: 950px;
+                max-width: 1050px;
                 min-height: 100vh;
                 margin: auto;
                 border-left: var(--border-light);
@@ -104,13 +104,13 @@
             flex: 1;
             overflow-y: auto;
             padding: 2rem;
-            padding-bottom: 120px;
+            padding-bottom: 130px;
         }
 
         .tab-pane {
             display: none;
             animation: fadeIn 0.4s ease;
-            max-width: 850px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
@@ -140,7 +140,7 @@
 
         @media (min-width: 900px) {
             .bottom-nav {
-                max-width: 950px;
+                max-width: 1050px;
                 left: 50%;
                 transform: translateX(-50%);
             }
@@ -292,40 +292,52 @@
             opacity: 0.9;
         }
 
-        /* تعديل شبكة الرسائل لتكون تحت بعضها بشكل عمودي ومنسق */
+        /* شبكة مربعات الرسائل: إجبار 3 مربعات جنب بعض بقوة */
         .envelope-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 18px !important;
+        }
+
+        @media (max-width: 768px) {
+            .envelope-grid {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
         }
 
         .env-card {
             background: var(--bg-card);
             border: var(--border-light);
-            border-radius: 16px;
-            padding: 1.2rem 1.5rem;
-            text-align: right;
+            border-radius: 18px;
+            padding: 1.8rem 1.2rem;
+            text-align: center;
             cursor: pointer;
             box-shadow: var(--shadow-soft);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
-            transition: transform 0.2s;
+            justify-content: center;
+            min-height: 150px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .env-card:hover {
-            transform: translateX(-4px);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(44, 53, 49, 0.1);
+            border-color: var(--gold-accent);
         }
 
         .env-card i {
-            font-size: 1.6rem;
+            font-size: 2.2rem;
             color: var(--gold-accent);
+            margin-bottom: 0.8rem;
         }
 
         .env-card h4 {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-main);
             font-family: 'Amiri', serif;
+            line-height: 1.4;
         }
 
         .reminder-item {
@@ -556,70 +568,82 @@
             <!-- TAB 4: OPEN WHEN MESSAGES -->
             <div id="tab-messages" class="tab-pane">
                 <h3 style="font-family: 'Amiri', serif; margin-bottom: 0.5rem; font-size: 1.2rem;">رسائل افتحيها عندما... ✉️</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">رسائل دافئة مجهزة لكِ، وبعد كل امتحان تخلصيه.</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">رسائل دافئة مجهزة لكِ لكل لحظة وحالة تمرّين بها.</p>
 
-                <!-- الرسائل تحت بعضها بشكل عمودي ومنسق -->
+                <!-- شبكة مربعات الرسائل (3 مربعات جنب بعض بقوة) -->
                 <div class="envelope-grid" id="envelopes-wrapper">
                     <div class="env-card" onclick="openMsg('لما تحسي بالتعب 🌿', 'يا عيوني وسند حياتي، التعب طبيعي جداً بهالفترة، بس اتذكري إنه هاللحظات الصعبة هي اللي بتصنع نجاحك الفخم. خدي استراحة قصيرة، واشربي قهوتك، وارجعي وأنتِ أقوى!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>لما تحسي بالتعب</h4>
+                        <h4>لما تحسي بالتعب 🌿</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('لما تفقدين الحماس 🔥', 'سالي الغالية.. اتذكري الفرحة الكبيرة يوم إعلان النتائج لما تشوفي اسمك فوق والكل فخور فيكِ! الحماس بروح وبيرجع، بس إرادتك هي اللي بتدوم.')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>لما تفقدين الحماس</h4>
+                        <h4>لما تفقدين الحماس 🔥</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('قبل الامتحان ✍️', 'سمّي بسم الله، وخذي نفس عميق. أنتِ درستِ وتعبتِ وعملتِ اللي عليكِ، والرب معكِ. ثقي بنفسك وبإجاباتك!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>قبل الامتحان</h4>
+                        <h4>قبل الامتحان ✍️</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('عند إنجاز كبير ⭐', 'فخورة فييييكِ يا أحلى أخت بالدنيا! كل هدف صغير بتنجزيه هو خطوة عملاقة بنحتفل فيها سوا. واصلي إبداعك يا بطلة!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>عند إنجاز كبير</h4>
+                        <h4>عند إنجاز كبير ⭐</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد الامتحان 🚪', 'الامتحان صار خلفك، وما عاد فيه مجال للتفكير فيه! ركزي باللي جاي، وادخلي الامتحان القادم بنفس مطمئنة وقلب قوي.')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد الامتحان</h4>
+                        <h4>بعد الامتحان 🚪</h4>
+                    </div>
+                    <div class="env-card" onclick="openMsg('لما تحتاجي جرعة أمل 🌸', 'كل شيء في الكون يسعى معكِ لأنكِ تسعين بصدق. غداً تشرق شمس أحلامك وتنسين كل تعب!')">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                        <h4>لما تحتاجي جرعة أمل 🌸</h4>
+                    </div>
+                    <div class="env-card" onclick="openMsg('لما تحسي بالتوتر والقلق 🌊', 'اطمئني يا روحي، ما بعد العسر إلا يسراً. ضعي يدكِ على قلبكِ وتنفّسي بعمق، أنتِ قدها وزيادة.')">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                        <h4>لما تحسي بالتوتر والقلق 🌊</h4>
+                    </div>
+                    <div class="env-card" onclick="openMsg('لما تنجزي مادة صعبة 🏆', 'الله الله على العظمة! كسرْتِ الصعب وأثبتِ لنفسك قديش أنتِ ذكية وقوية. مبارك إنجازك الفخم!')">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                        <h4>لما تنجزي مادة صعبة 🏆</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان الرياضيات 📐', 'أول مادة أساسية صارت خلفك! برافو يا بطلة، خذي نفس عميق وافتحي صفحة جديدة للمادة التالية بكل ثقة.')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان الرياضيات</h4>
+                        <h4>بعد امتحان الرياضيات 📐</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان الانجليزي 🔤', 'خطوة سلسة ومميزة يا عيوني! عم تثبتي لنفسك كل يوم قديش أنتِ قدها وقديش تعبك عم يثمر.')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان الانجليزي</h4>
+                        <h4>بعد امتحان الانجليزي 🔤</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان الكيمياء 🧪', 'نص المشوار تقريباً خلص وأنتِ عم تبدعي! فخورة بهمتك العالية وبإصرارك الرائع.')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان الكيمياء</h4>
+                        <h4>بعد امتحان الكيمياء 🧪</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان الفيزياء ⚡', 'الهمّة واصلة لأعلى مستوياتها، ما ضل غير القليل لتوصلي للقمة يا سالي!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان الفيزياء</h4>
+                        <h4>بعد امتحان الفيزياء ⚡</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان العربي 📖', 'روعة إصرارك وثباتك جميل جداً يا عيوني. واصلي تألقك!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان العربي</h4>
+                        <h4>بعد امتحان العربي 📖</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان الدين 🕌', 'راحة وسلام لقلبِك الجميل. خطوات معدودة وتفرحي بفرحة التخرج الكبرى.')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان الدين</h4>
+                        <h4>بعد امتحان الدين 🕌</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان الوطنية 🇦🇪', 'قربنا نوصل خط النهاية ونفخر بهالرحلة العظيمة سوا!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان الوطنية</h4>
+                        <h4>بعد امتحان الوطنية 🇦🇪</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('بعد امتحان الأحياء 🧬', 'الختام مسك! كل مادة خلصتيها أثبتت قديش أنتِ ذكية ومجتهدة. أنتِ بطلة بكل ما تحمله الكلمة من معنى!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>بعد امتحان الأحياء</h4>
+                        <h4>بعد امتحان الأحياء 🧬</h4>
                     </div>
                     <div class="env-card" onclick="openMsg('في يوم آخر امتحان 🎉', 'وأخيراً وصلتي لهاد اليوم العظيم! فخورة فيكِ من أول خطوة لآخر لحظة. استمتعي بشعور الإنجاز يا ملكة التوجيهي!')">
                         <i class="fa-solid fa-envelope-open-text"></i>
-                        <h4>يوم آخر امتحان</h4>
+                        <h4>يوم آخر امتحان 🎉</h4>
                     </div>
                 </div>
 
                 <!-- بطاقة إضافة رسالة جديدة -->
-                <div class="card" style="margin-top: 1.5rem;">
+                <div class="card" style="margin-top: 1.8rem;">
                     <div class="card-title"><i class="fa-solid fa-plus-circle"></i> أضيفي رسالتكِ أو إلهامكِ الخاص</div>
                     <input type="text" id="custom-env-title" class="input-custom" placeholder="عنوان الرسالة الشخصية...">
                     <textarea id="custom-env-text" class="input-custom" style="height: 90px; resize: none;" placeholder="نص الرسالة أو الإلهام..."></textarea>
@@ -765,7 +789,7 @@
             { name: "8. أحياء", time: new Date("2026-12-11T08:00:00").getTime(), isExam: true }
         ];
 
-        let subjects = JSON.parse(localStorage.getItem('sally_subjects_list_v9')) || correctSubjects;
+        let subjects = JSON.parse(localStorage.getItem('sally_subjects_list_v11')) || correctSubjects;
 
         function renderSubjects() {
             let container = document.getElementById('subjects-cards-container');
@@ -801,7 +825,7 @@
             if(!name || !timeVal) return alert('الرجاء إدخال الاسم ووقت الموعد');
 
             subjects.push({ name: name, time: new Date(timeVal).getTime(), isExam: isExam });
-            localStorage.setItem('sally_subjects_list_v9', JSON.stringify(subjects));
+            localStorage.setItem('sally_subjects_list_v11', JSON.stringify(subjects));
             
             document.getElementById('new-subj-name').value = '';
             document.getElementById('new-subj-time').value = '';
@@ -823,14 +847,14 @@
             if(newName.trim() !== "") subj.name = newName;
             if(!isNaN(newTime)) subj.time = newTime;
 
-            localStorage.setItem('sally_subjects_list_v9', JSON.stringify(subjects));
+            localStorage.setItem('sally_subjects_list_v11', JSON.stringify(subjects));
             renderSubjects();
             alert('تم التعديل بنجاح ✨');
         }
 
         function deleteSubject(index) {
             subjects.splice(index, 1);
-            localStorage.setItem('sally_subjects_list_v9', JSON.stringify(subjects));
+            localStorage.setItem('sally_subjects_list_v11', JSON.stringify(subjects));
             renderSubjects();
         }
 
@@ -920,3 +944,4 @@
     </script>
 </body>
 </html>
+ 
