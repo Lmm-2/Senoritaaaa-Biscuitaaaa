@@ -102,7 +102,8 @@
             overflow-y: auto;
             padding: 1.2rem;
             position: relative;
-            padding-bottom: 90px;
+            /* مساحة كافية من الأسفل حتى لا يغطي شريط التنقل المحتوى الأخير */
+            padding-bottom: 100px;
         }
 
         .tab-pane {
@@ -570,13 +571,6 @@
                         <h4>يوم آخر امتحان</h4>
                     </div>
                 </div>
-
-                <div class="card" style="margin-top: 1rem;">
-                    <div class="card-title"><i class="fa-solid fa-plus-circle"></i> أضيفي رسالتكِ الخاصة</div>
-                    <input type="text" id="custom-env-title" class="input-custom" placeholder="عنوان الرسالة الشخصية...">
-                    <textarea id="custom-env-text" class="input-custom" style="height: 70px; resize: none;" placeholder="نص الرسالة..."></textarea>
-                    <button class="btn-custom" onclick="addCustomMessage()">حفظ الرسالة الشخصية</button>
-                </div>
             </div>
 
             <!-- TAB 5: STUDY TIMER -->
@@ -619,7 +613,7 @@
             </button>
             <button class="nav-btn" onclick="switchTab('reminders', this)">
                 <i class="fa-solid fa-heart"></i>
-                <span>الرسائل والتذكيرات</span>
+                <span>رسائلنا</span>
             </button>
             <button class="nav-btn" onclick="switchTab('subjects', this)">
                 <i class="fa-solid fa-hourglass-half"></i>
@@ -716,8 +710,7 @@
             { name: "8. أحياء", time: new Date("2026-12-11T08:00:00").getTime(), isExam: true }
         ];
 
-        // مفتاح تخزين جديد كلياً لضمان عدم حدوث تعارض مع البيانات القديمة
-        let subjects = JSON.parse(localStorage.getItem('sally_subjects_list_v3')) || correctSubjects;
+        let subjects = JSON.parse(localStorage.getItem('sally_subjects_list_v4')) || correctSubjects;
 
         function renderSubjects() {
             let container = document.getElementById('subjects-cards-container');
@@ -753,7 +746,7 @@
             if(!name || !timeVal) return alert('الرجاء إدخال الاسم ووقت الموعد');
 
             subjects.push({ name: name, time: new Date(timeVal).getTime(), isExam: isExam });
-            localStorage.setItem('sally_subjects_list_v3', JSON.stringify(subjects));
+            localStorage.setItem('sally_subjects_list_v4', JSON.stringify(subjects));
             
             document.getElementById('new-subj-name').value = '';
             document.getElementById('new-subj-time').value = '';
@@ -775,14 +768,14 @@
             if(newName.trim() !== "") subj.name = newName;
             if(!isNaN(newTime)) subj.time = newTime;
 
-            localStorage.setItem('sally_subjects_list_v3', JSON.stringify(subjects));
+            localStorage.setItem('sally_subjects_list_v4', JSON.stringify(subjects));
             renderSubjects();
             alert('تم التعديل بنجاح ✨');
         }
 
         function deleteSubject(index) {
             subjects.splice(index, 1);
-            localStorage.setItem('sally_subjects_list_v3', JSON.stringify(subjects));
+            localStorage.setItem('sally_subjects_list_v4', JSON.stringify(subjects));
             renderSubjects();
         }
 
@@ -803,29 +796,6 @@
                 el.innerText = `${days} يوم : ${hours} ساعة : ${mins} دقيقة : ${secs} ثانية متبقية`;
             });
         }, 1000);
-
-        function saveJournal() {
-            let val = document.getElementById('journal-text').value;
-            localStorage.setItem('sally_user_journal', val);
-            alert('تم حفظ مذكراتكِ بنجاح 🤍');
-        }
-
-        function addCustomMessage() {
-            let title = document.getElementById('custom-env-title').value;
-            let text = document.getElementById('custom-env-text').value;
-            if(!title || !text) return alert('الرجاء تعبئة العنوان والنص');
-
-            let grid = document.getElementById('envelopes-wrapper');
-            let div = document.createElement('div');
-            div.className = 'env-card';
-            div.onclick = () => openMsg(title, text);
-            div.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i><h4>${title}</h4>`;
-            grid.appendChild(div);
-
-            document.getElementById('custom-env-title').value = '';
-            document.getElementById('custom-env-text').value = '';
-            alert('تمت إضافة رسالتكِ بنجاح 🤍');
-        }
 
         let timerInterval;
         let totalSeconds = 25 * 60;
